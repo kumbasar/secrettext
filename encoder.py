@@ -4,7 +4,6 @@ import base64
 import string
 import argparse
 
-alphabets = (string.ascii_lowercase, string.ascii_uppercase)
 caesar_shift = 7
 
 parser = argparse.ArgumentParser(description='Encoder Help.')
@@ -24,8 +23,9 @@ plain_string = encoder_parm.plain_string
 print("Caesar Shift value: " + str(encoder_parm.shift))
 print("Plain String: " + plain_string)
 
+def caesar(text, step):
 
-def caesar(text, step, alphabets):
+    alphabets = (string.ascii_lowercase, string.ascii_uppercase)
 
     def shift(alphabet):
         return alphabet[step:] + alphabet[:step]
@@ -36,17 +36,15 @@ def caesar(text, step, alphabets):
     table = string.maketrans(joined_aphabets, joined_shifted_alphabets)
     return text.translate(table)
 
-
 # Cesar Cipher
-CAESAR_STRING = caesar( plain_string , caesar_shift , alphabets=alphabets)
+CAESAR_STRING = caesar(plain_string , caesar_shift)
 print("Caesar Cipher String: " + CAESAR_STRING)
 
-
+# Bas64
 encodedBytes = base64.b64encode(CAESAR_STRING.encode("utf-8"))
 BASE64_STRING = str(encodedBytes)
-
 print("BASE64 String: " + BASE64_STRING)
 
+# Binary
 BINARY_STRING = ' '.join(format(x, 'b') for x in bytearray(BASE64_STRING))
-
 print("Binary String: " + BINARY_STRING)
