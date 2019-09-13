@@ -2,9 +2,25 @@
 
 import base64
 import string
+import argparse
 
 alphabets = (string.ascii_lowercase, string.ascii_uppercase)
-step = 2
+caesar_shift = 7
+PLAIN_STRING = "Hello World!! 1 2 9"
+
+parser = argparse.ArgumentParser(description='My example explanation')
+parser.add_argument(
+    '--shift',
+    type=int,
+    default=7,
+    help='set ceaser chiper shift value (default: ' + str(caesar_shift) + ')'
+)
+encoder_parm = parser.parse_args()
+
+caesar_shift = encoder_parm.shift
+
+print("Caesar Shift value: " + str(encoder_parm.shift))
+
 
 def caesar(text, step, alphabets):
 
@@ -17,11 +33,10 @@ def caesar(text, step, alphabets):
     table = string.maketrans(joined_aphabets, joined_shifted_alphabets)
     return text.translate(table)
 
-PLAIN_STRING = "Hello World!! 1 2 9"
 print("PLAIN_STRING:" + PLAIN_STRING)
 
 # Cesar Cipher
-CAESAR_STRING = caesar( PLAIN_STRING , step , alphabets=alphabets)
+CAESAR_STRING = caesar( PLAIN_STRING , caesar_shift , alphabets=alphabets)
 print("CAESAR_STRING:" + CAESAR_STRING)
 
 
